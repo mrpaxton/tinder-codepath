@@ -23,6 +23,12 @@ class DraggableImageView: UIView {
         // Drawing code
     }
     */
+    
+    func rotate(contentViewToRotate: UIView, clockwise: Bool) {
+        let direction = clockwise ? 1 : -1
+        UIView.animateWithDuration(2.0, animations: { self.contentView.transform = CGAffineTransformMakeRotation( CGFloat(direction) * (30.0 * CGFloat(M_PI)) / 180.0 )
+        })
+    }
     @IBAction func onPanGesture(panGestureRecognizer: UIPanGestureRecognizer) {
         
         let translation = panGestureRecognizer.translationInView(self)
@@ -34,8 +40,25 @@ class DraggableImageView: UIView {
             //set the current center to the imagecenter
             currentCenterPoint = innerImageView.center
         } else if panGestureRecognizer.state == UIGestureRecognizerState.Changed {
+            
+            //also rotate the contentView
+            //if dragged to the right, rotate clockwise
+            //detect the drag to the right
+            if translation.x > contentView.center.x {
+                rotate(self.contentView, clockwise: true)
+            } else if translation.x <= contentView.center.x {
+                //else to the left, rotate counter clockwise
+                rotate(self.contentView, clockwise: false)
+            }
+
+            
             //update the imageview center x to be translation center x
             self.contentView.center.x = translation.x
+            
+            
+            
+            
+            
             
         }
     }
