@@ -10,6 +10,11 @@ import UIKit
 
 class DraggableImageView: UIView {
 
+    @IBOutlet weak var innerImageView: UIImageView!
+    
+    var initialCenterPoint: CGPoint?
+    var currentCenterPoint: CGPoint?
+    
     @IBOutlet var contentView: UIView!
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -18,6 +23,22 @@ class DraggableImageView: UIView {
         // Drawing code
     }
     */
+    @IBAction func onPanGesture(panGestureRecognizer: UIPanGestureRecognizer) {
+        
+        let translation = panGestureRecognizer.translationInView(self)
+        
+        initialCenterPoint = panGestureRecognizer.view?.center
+        
+        
+        if panGestureRecognizer.state == UIGestureRecognizerState.Began {
+            //set the current center to the imagecenter
+            currentCenterPoint = innerImageView.center
+        } else if panGestureRecognizer.state == UIGestureRecognizerState.Changed {
+            //update the imageview center x to be translation center x
+            self.contentView.center.x = translation.x
+            
+        }
+    }
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -36,5 +57,8 @@ class DraggableImageView: UIView {
         addSubview(contentView)
         
         //custom initialization logics
+        currentCenterPoint = self.center
     }
+    
+    
 }

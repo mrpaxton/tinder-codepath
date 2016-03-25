@@ -10,8 +10,7 @@ import UIKit
 
 class CardsViewController: UIViewController {
     
-    var initialCenterPoint: CGPoint?
-    var currentCenterPoint: CGPoint?
+    
 
 //    @IBOutlet weak var mainProfileImageView: UIImageView!
     
@@ -21,7 +20,7 @@ class CardsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        currentCenterPoint = customProfileView.center
+        
         
     }
 
@@ -31,19 +30,7 @@ class CardsViewController: UIViewController {
     }
     
     @IBAction func onImagePanGesture(panGestureRecognizer: UIPanGestureRecognizer) {
-        let translation = panGestureRecognizer.translationInView(view)
         
-        initialCenterPoint = panGestureRecognizer.view?.center
-        
-        
-        if panGestureRecognizer.state == UIGestureRecognizerState.Began {
-            //set the current center to the imagecenter
-            currentCenterPoint = customProfileView.center
-        } else if panGestureRecognizer.state == UIGestureRecognizerState.Changed {
-            //update the imageview center x to be translation center x
-            customProfileView.center.x = translation.x
-            
-        }
     }
     
 //    func onCustomPan(panGestureRecognizer: UIPanGestureRecognizer) {
