@@ -46,9 +46,20 @@ class DraggableImageView: UIView {
             //detect the drag to the right
             if translation.x > contentView.center.x {
                 rotate(self.contentView, clockwise: true)
+                
+                //animate off the screen to the right
+                if translation.x > 50 {
+                    self.contentView.center.x += self.bounds.width
+                }
+                
             } else if translation.x <= contentView.center.x {
                 //else to the left, rotate counter clockwise
                 rotate(self.contentView, clockwise: false)
+                
+                //animate off the screen to the left
+                if translation.x < 50 {
+                    self.contentView.center.x -= self.bounds.width
+                }
             }
 
             
